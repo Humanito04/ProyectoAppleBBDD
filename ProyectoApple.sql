@@ -113,6 +113,7 @@ CREATE TABLE macbook(
 	modelo VARCHAR(20),
 	color VARCHAR(20),
 	almacenamiento VARCHAR(20),
+	tipo_chip VARCHAR(20),
 	precio DECIMAL(6,2),
 
 CONSTRAINT fk_macbook FOREIGN KEY (id_producto) REFERENCES producto(id) 	
@@ -138,9 +139,8 @@ DESCRIBE ipad;
 CREATE TABLE airpod(
 	id INT PRIMARY KEY AUTO_INCREMENT,
 	id_producto INT ,
-	modelo VARCHAR(20),
+	modelo VARCHAR(30),
 	color VARCHAR(20),
-	almacenamiento VARCHAR(20),
 	precio DECIMAL(6,2),
 
 CONSTRAINT fk_airpod FOREIGN KEY (id_producto) REFERENCES producto(id) 	
@@ -149,26 +149,12 @@ CONSTRAINT fk_airpod FOREIGN KEY (id_producto) REFERENCES producto(id)
 DESCRIBE airpod;
 
 
-CREATE TABLE vision(
-	id INT PRIMARY KEY AUTO_INCREMENT,
-	id_producto INT ,
-	modelo VARCHAR(20),
-	color VARCHAR(20),
-	almacenamiento VARCHAR(20),
-	precio DECIMAL(6,2),
-
-CONSTRAINT fk_vision FOREIGN KEY (id_producto) REFERENCES producto(id) 	
-);
-
-DESCRIBE vision;
-
 
 CREATE TABLE watch(
 	id INT PRIMARY KEY AUTO_INCREMENT,
 	id_producto INT,
-	modelo VARCHAR(20),
-	color VARCHAR(20),
-	almacenamiento VARCHAR(20),
+	modelo VARCHAR(30),
+	tipo_correa VARCHAR(30),
 	precio DECIMAL(6,2),
 
 CONSTRAINT fk_watch FOREIGN KEY (id_producto) REFERENCES producto(id) 	
@@ -270,14 +256,34 @@ SELECT * FROM ipad;
 
 
 
-INSERT INTO macbook (id_producto, modelo, color,almacenamiento, precio) VALUES
-	(2, "Ipad Air ", " Azul","64GB" ,769.70),
-	(2, "Ipad Air ", " Rosa","64GB" ,769.70),
-	(2, "Ipad Air ", " Purpura","256GB" ,969.70),
-	(2, "Ipad Pro ", " Plata","128GB" ,1049.70),
-	(2, "Ipad Pro ", " Gris espacial","128GB" ,1049.70),
-	(2, "Ipad Pro ", " Gris espacial","512GB" ,1429.70 ),
-	(2, "Ipad Pro ", " Plata","1TB" ,1929.70 );
+INSERT INTO macbook (id_producto, modelo, color,almacenamiento,tipo_chip, precio) VALUES
+	(3, "Macbook 13 pulgadas ", " Medianoche","256GB","CHIP M2" ,1199.00),
+	(3, "Macbook 13 pulgadas ", " Blanco estrella","256GB","CHIP M2" ,1199.00),
+	(3, "Macbook 13 pulgadas ", " Medianoche","512GB","CHIP M2" ,1429.00),
+	(3, "Macbook 13 pulgadas ", " Medianoche","256GB","CHIP M3" ,1299.00),
+	(3, "Macbook 13 pulgadas ", " Medianoche","512GB","CHIP M3" ,1529.00),
+	(3, "Macbook 15 pulgadas ", " Medianoche","256GB","CHIP M3" ,1599.00);
 	
 
-SELECT * FROM ipad;
+SELECT * FROM macbook;
+
+INSERT INTO airpod (id_producto, modelo, color, precio) VALUES
+	(4, "Airpod 2 generacion ", " Blanco",149.00),
+	(4, "Airpod 3 generacion ", " Blanco",209.00),
+	(4, "AirpodPro 2 generacion ", " Blanco",279.00);
+	
+	
+
+SELECT * FROM airpod;
+
+
+
+INSERT INTO watch (id_producto, modelo, tipo_correa, precio) VALUES
+	(5, "AppleWacth 9 ", " Aluminio",449.00),
+	(5, "AppleWacth 9 ", " Acero inoxidable",779.00),
+	(5, "AppleWacth Ultra 2 ", " Correa Loop Alpine",899.00),
+	(5, "AppleWacth Ultra 2 ", " Correa Ocean",899.00);
+	
+	
+
+SELECT * FROM watch;
