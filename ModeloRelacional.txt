@@ -1,0 +1,57 @@
+Tienda(id, direccion, num_trabajadores)
+PK(id)
+
+Producto(id,nombre, id_categoria, nombre_producto)
+PK(id)
+FK(id_categoria -> Categoria)
+
+Disponer(id_tienda,id_producto,direccion_tienda)
+PK(id_tienda)
+FK(id_tienda -> Tienda)
+FK(id_producto -> Producto)
+FK(direccion_tienda -> Tienda)
+
+Cliente(id, nombre_completo, email, fecha_compra)
+PK(id)
+
+Comprar(id_cliente,id_producto)
+PK(id_cliente,id_producto)
+FK(id_cliente -> Cliente)
+FK(id_producto -> Producto)
+
+Pedido(cod_pedido ,fecha_pedido, id_producto, direccion_entrega, coste_total,id_cliente)
+FK(id_cliente -> Cliente)
+
+Plataforma(id, nombre_plataforma, coste_mesual)
+
+Proveedor(id_proveedor,nombre_completo, dni,)
+PK(id_proveedor)
+
+Iphone(id_categoria, modelo, color, precio)
+PK(id_categoria)
+FK(id_categoria -> categoria)
+
+Macbook (id_categoria, modelo, color, precio)
+PK(id_categoria)
+FK(id_categoria -> categoria)
+
+Ipad(id_categoria, modelo, color, precio)
+PK(id_categoria)
+FK(id_categoria -> categoria)
+
+Airpods (id_categoria, modelo, color, precio)
+PK(id_categoria)
+FK(id_categoria -> categoria)
+
+Vision (id_categoria, modelo, color, precio)
+PK(id_categoria)
+FK(id_categoria -> categoria)
+
+Watch (id_categoria, modelo, color, precio)
+PK(id_categoria)
+FK(id_categoria -> categoria)
+
+TVStores (id_categoria, modelo, color, precio)
+PK(id_categoria)
+FK(id_categoria -> categoria)
+

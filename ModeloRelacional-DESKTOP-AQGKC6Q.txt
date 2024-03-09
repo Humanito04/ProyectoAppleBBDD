@@ -1,0 +1,21 @@
+Tienda(id,localizacion, num_trabajadores)
+	PK(id)
+
+Producto(id, nombre_producto, id_categoria)
+	PK(id)
+	FK(id_categoria -> Categoria)
+
+Categoria(id,nombre_categoria)
+	PK(id)
+
+Cliente(id,nombre,apellidos, email, fecha_compra)
+	PK(id)
+
+Pedido(cod_pedido,id_producto, precio_producto	)
+	PK(cod_pedido)
+	FK(id_producto -> Categoria)
+
+Proveedor(id,nombre_completo)
+	PK(id)
+
+Plataforma()
