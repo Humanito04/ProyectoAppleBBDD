@@ -6,7 +6,8 @@ USE apple;
 CREATE TABLE tienda(
 	id INT PRIMARY KEY AUTO_INCREMENT,
 	direccion VARCHAR(100),
-	num_trabajadores INT 
+	num_trabajadores INT
+	
 
 
 );
@@ -25,6 +26,7 @@ CREATE TABLE disponer(
 	id_tienda INT ,
 	id_producto INT,
 	direccion_tienda VARCHAR(100),
+	cantidad INT,
 
 
 CONSTRAINT pk_disponer PRIMARY KEY(id_tienda, id_producto),
@@ -59,16 +61,18 @@ CONSTRAINT fk_comprar_producto FOREIGN KEY (id_producto) REFERENCES producto(id)
 DESCRIBE comprar;
 
 CREATE TABLE pedido(
-	cod_pedido INT PRIMARY KEY AUTO_INCREMENT,
+	cod_pedido INT AUTO_INCREMENT,
 	fecha_pedido DATE,
+	id_tienda INT,
 	id_producto INT,
 	direccion_entrega VARCHAR(100),
-	coste_total DECIMAL(5,2),
+	coste_total DECIMAL(6,2),
 	id_cliente INT,
 
-
+CONSTRAINT pk_pedido PRIMARY KEY (cod_pedido, fecha_pedido, id_tienda),
 CONSTRAINT fk_cliente FOREIGN KEY (id_cliente) REFERENCES cliente(id),
-CONSTRAINT fk_producto_pedido FOREIGN KEY(id_producto) REFERENCES producto(id)
+CONSTRAINT fk_producto_pedido FOREIGN KEY(id_producto) REFERENCES producto(id),
+CONSTRAINT fk_tienda_pedido FOREIGN KEY (id_tienda) REFERENCES tienda(id)
 );
 
 DESCRIBE pedido;
@@ -97,12 +101,14 @@ DESCRIBE proveedor;
 CREATE TABLE iphone(
 	id INT PRIMARY KEY AUTO_INCREMENT,
 	id_producto INT ,
+	id_tienda INT,
 	modelo VARCHAR(20),
 	color VARCHAR(20),
 	almacenamiento VARCHAR(20),
 	precio DECIMAL(6,2),
 
-CONSTRAINT fk_iphone FOREIGN KEY (id_producto) REFERENCES producto(id) 	
+CONSTRAINT fk_iphone FOREIGN KEY (id_producto) REFERENCES producto(id) ,
+CONSTRAINT fk_iphone_tienda FOREIGN KEY(id_tienda) REFERENCES tienda(id)
 );
 
 DESCRIBE iphone;
@@ -193,24 +199,29 @@ INSERT INTO producto (nombre_producto) VALUES
 SELECT * FROM producto;
 
 
-INSERT INTO disponer (id_tienda, id_producto, direccion_tienda) VALUES
-	(1, 1, 'Calle La Plata, 23'),
-	(1, 2, 'Calle Duquesa de Alba, 48'),
-	(2, 3, 'Avenida de Andalucía, 56');
+INSERT INTO disponer (id_tienda, id_producto, direccion_tienda, cantidad) VALUES
+	(1, 1, 'Calle La Plata, 23', 30),
+	(1, 2, 'Calle Duquesa de Alba, 48',27),
+	(2, 3, 'Avenida de Andalucía, 56',65);
 
 SELECT * FROM disponer;
 
 
 INSERT INTO cliente (nombre_completo, email, fecha_compra) VALUES
 	('Pablo Conde', 'pablocondemellado04@gmail.com', '2024-03-08'),
-	('Fran Ruiz', 'franruiz04@gmail.com', '2024-03-07');
+	('Fran Ruiz', 'franruiz04@gmail.com', '2024-03-07'),
+	('Pablo Humanes', 'pahuga@gmail.com', '2024-03-10'),
+	('Maria Guillen', 'lamery@gmail.com', '2024-02-25');
 
 SELECT * FROM cliente;
 
 
-INSERT INTO pedido (fecha_pedido, id_producto, direccion_entrega, coste_total, id_cliente) VALUES
-	('2024-03-08', 1, 'Calle del Olmo, 4', 750.00, 1),
-	('2024-03-08', 1, 'Calle Roberto Leal, 4', 999.00, 2);
+INSERT INTO pedido (fecha_pedido, id_tienda, id_producto, direccion_entrega, coste_total, id_cliente) VALUES
+	('2024-03-08',1 , 1, 'Calle del Olmo, 4', 750.00, 1),
+	('2024-03-08',1 , 1, 'Calle Roberto Leal, 4', 999.00, 2),
+	('2024-03-08',2 , 3, 'Calle Coracha, 44B', 1599.00, 3),
+	('2024-03-08',2 , 4, 'Calle La lata, 74', 279.00, 3),
+	('2024-03-08',1 ,  5, 'Calle Gestoso, 13', 779.00, 4);
 
 
 SELECT * FROM pedido;
@@ -229,16 +240,16 @@ INSERT INTO proveedor (nombre, dni) VALUES
 SELECT * FROM proveedor;
 
 
-INSERT INTO iphone (id_producto, modelo, color,almacenamiento, precio) VALUES
-	(1, "Iphone 15", " Azul","128GB" ,959.00),
-	(1, "Iphone 15", " Rosa","256GB", 1089.00 ),
-	(1, "Iphone 15", " Amarillo","512GB", 1339.00 ),
-	(1, "Iphone 14", " Blanco estrella ","128GB", 859.00 ),
-	(1, "Iphone 14", " Purpura","256GB", 989.00 ),
-	(1, "Iphone 14", " Medianoche","512GB", 1239.00 ),
-	(1, "Iphone 13", " Blanco estrella","256GB", 869.00 ),
-	(1, "Iphone 13", " Azul", "128GB", 739.00 ),
-	(1, "Iphone 13", " RED","256GB", 869.00 );
+INSERT INTO iphone (id_producto,id_tienda, modelo, color,almacenamiento, precio) VALUES
+	(1,1, "Iphone 15", " Azul","128GB" ,959.00),
+	(1,2, "Iphone 15", " Rosa","256GB", 1089.00 ),
+	(1,2, "Iphone 15", " Amarillo","512GB", 1339.00 ),
+	(1,1, "Iphone 14", " Blanco estrella ","128GB", 859.00 ),
+	(1,1, "Iphone 14", " Purpura","256GB", 989.00 ),
+	(1,2, "Iphone 14", " Medianoche","512GB", 1239.00 ),
+	(1,1, "Iphone 13", " Blanco estrella","256GB", 869.00 ),
+	(1,1, "Iphone 13", " Azul", "128GB", 739.00 ),
+	(1,2, "Iphone 13", " RED","256GB", 869.00 );
 
 SELECT * FROM iphone;
 
